@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.lottie.LottieCompositionFactory
 import com.airbnb.lottie.LottieDrawable
 import com.cxz.bottomnav.sample.constants.LottieAnimation
+import com.cxz.bottomnav.sample.event.RedDotEvent
 import com.cxz.bottomnav.sample.ui.HomeFragment
 import com.cxz.bottomnav.sample.ui.MeFragment
 import com.cxz.bottomnav.sample.ui.MessageFragment
@@ -21,6 +22,9 @@ import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,18 +60,9 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigationView()
     }
 
-    /**
-     * 展示底部Item角标
-     */
-    private fun showMsgDot() {
-        val badge = bottomNavBar.getOrCreateBadge(2)
-        badge.badgeGravity = BadgeDrawable.TOP_END
-        badge.isVisible = true
-        badge.backgroundColor = Color.RED
-        badge.verticalOffset = 26
-        badge.horizontalOffset = 20
-        badge.maxCharacterCount = 3
-        badge.number = 999
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
     }
 
     /**
@@ -177,4 +172,29 @@ class MainActivity : AppCompatActivity() {
     private fun getLottieAnimationList(): ArrayList<LottieAnimation> {
         return navigationAnimationList
     }
+
+    /**
+     * 展示底部Item角标
+     */
+    private fun showMsgDot(count: Int) {
+        val badge = bottomNavBar.getOrCreateBadge(2)
+        badge.badgeGravity = BadgeDrawable.TOP_END
+        badge.backgroundColor = Color.RED
+        badge.verticalOffset = 26
+        badge.horizontalOffset = 20
+        badge.maxCharacterCount = 3
+        badge.number = count
+        badge.isVisible = count > 0
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun showMsgDogEvent(event: RedDotEvent) {
+        showMsgDot(event.count)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
 }
