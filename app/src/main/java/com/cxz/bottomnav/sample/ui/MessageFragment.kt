@@ -29,8 +29,12 @@ class MessageFragment : Fragment() {
     }
 
     private fun initView() {
-        view?.findViewById<Button>(R.id.button)?.setOnClickListener {
+        view?.findViewById<Button>(R.id.showRedBtn)?.setOnClickListener {
             EventBus.getDefault().post(RedDotEvent(msgCount++))
+        }
+        view?.findViewById<Button>(R.id.hideRedBtn)?.setOnClickListener {
+            msgCount = 90
+            EventBus.getDefault().post(RedDotEvent(-1))
         }
     }
 
