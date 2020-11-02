@@ -13,7 +13,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.lottie.LottieCompositionFactory
 import com.airbnb.lottie.LottieDrawable
 import com.cxz.bottomnav.sample.constants.LottieAnimation
-import com.cxz.bottomnav.sample.event.RedDotEvent
+import com.cxz.bottomnav.sample.event.MessageRedDotEvent
+import com.cxz.bottomnav.sample.event.MineRedDotEvent
 import com.cxz.bottomnav.sample.ui.HomeFragment
 import com.cxz.bottomnav.sample.ui.MeFragment
 import com.cxz.bottomnav.sample.ui.MessageFragment
@@ -174,7 +175,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * 展示底部Item角标
+     * 展示底部消息Item角标
      */
     private fun showMsgDot(count: Int) {
         val badge = bottomNavBar.getOrCreateBadge(2)
@@ -188,8 +189,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public fun showMsgDogEvent(event: RedDotEvent) {
+    public fun showMsgDotEvent(event: MessageRedDotEvent) {
         showMsgDot(event.count)
+    }
+
+    /**
+     * 是否展示我的Item角标
+     * @param isShow Boolean 是否显示
+     */
+    private fun showMineDot(isShow: Boolean) {
+        val badge = bottomNavBar.getOrCreateBadge(3)
+        badge.badgeGravity = BadgeDrawable.TOP_END
+        badge.backgroundColor = Color.RED
+        badge.verticalOffset = 26
+        badge.horizontalOffset = 20
+        badge.maxCharacterCount = 3
+        badge.isVisible = isShow
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun showMineDotEvent(event: MineRedDotEvent) {
+        showMineDot(event.isShow)
     }
 
     override fun onDestroy() {

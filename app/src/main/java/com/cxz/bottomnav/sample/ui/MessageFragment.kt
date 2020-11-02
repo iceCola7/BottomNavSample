@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.cxz.bottomnav.sample.R
-import com.cxz.bottomnav.sample.event.RedDotEvent
+import com.cxz.bottomnav.sample.event.MessageRedDotEvent
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -30,11 +30,11 @@ class MessageFragment : Fragment() {
 
     private fun initView() {
         view?.findViewById<Button>(R.id.showRedBtn)?.setOnClickListener {
-            EventBus.getDefault().post(RedDotEvent(msgCount++))
+            EventBus.getDefault().post(MessageRedDotEvent(msgCount++))
         }
         view?.findViewById<Button>(R.id.hideRedBtn)?.setOnClickListener {
             msgCount = 90
-            EventBus.getDefault().post(RedDotEvent(-1))
+            EventBus.getDefault().post(MessageRedDotEvent(-1))
         }
     }
 

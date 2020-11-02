@@ -4,6 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/showRedBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="展示红点"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/hideRedBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐藏红点"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showRedBtn" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,4 +31,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

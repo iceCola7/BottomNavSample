@@ -5,4 +5,6 @@ package com.cxz.bottomnav.sample.event
  * @date 2020/10/24
  * @desc
  */
-class RedDotEvent(val count: Int)
+class MessageRedDotEvent(val count: Int)
+
+class MineRedDotEvent(val isShow: Boolean)
